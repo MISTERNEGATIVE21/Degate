@@ -28,8 +28,6 @@
 #include "GUI/Workspace/WorkspaceRenderer.h"
 #include "Globals.h"
 
-#include <qt6/QtOpenGLWidgets/qopenglwidget.h>
-
 namespace degate
 {
 

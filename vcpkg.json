@@ -10,48 +10,7 @@
     "boost-lexical-cast",
     "boost-date-time",
     "boost-optional",
-    "boost-range",
-    {
-      "name": "qtbase",
-      "default-features": false,
-      "features": [
-        "concurrent",
-        "thread",
-        "gui",
-        "opengl",
-        "widgets",
-        "jpeg",
-        "png",
-        {
-          "name": "xrender",
-          "platform": "linux"
-        },
-        {
-          "name": "xcb",
-          "platform": "linux"
-        },
-        {
-          "name": "xcb-xlib",
-          "platform": "linux"
-        },
-        {
-          "name": "fontconfig",
-          "platform": "linux"
-        },
-        {
-          "name": "egl",
-          "platform": "linux"
-        }
-      ]
-    },
-    {
-      "name": "qttools",
-      "default-features": false,
-      "features": [
-        "linguist"
-      ]
-    },
-    "qtimageformats"
+    "boost-range"
   ],
   "default-features": [],
   "features": {
@@ -59,6 +18,52 @@
       "description": "Dependencies for testing",
       "dependencies": [
         "catch2"
+      ]
+    },
+    "vcpkg-qt": {
+      "description": "Use vcpkg's Qt dependency. WARNING: this will not provide OpenGL software renderer fallback for Windows (mesa llvmpipe)",
+      "dependencies": [
+        {
+          "name": "qtbase",
+          "default-features": false,
+          "features": [
+            "concurrent",
+            "thread",
+            "gui",
+            "opengl",
+            "widgets",
+            "jpeg",
+            "png",
+            {
+              "name": "xrender",
+              "platform": "linux"
+            },
+            {
+              "name": "xcb",
+              "platform": "linux"
+            },
+            {
+              "name": "xcb-xlib",
+              "platform": "linux"
+            },
+            {
+              "name": "fontconfig",
+              "platform": "linux"
+            },
+            {
+              "name": "egl",
+              "platform": "linux"
+            }
+          ]
+        },
+        {
+          "name": "qttools",
+          "default-features": false,
+          "features": [
+            "linguist"
+          ]
+        },
+        "qtimageformats"
       ]
     }
   }

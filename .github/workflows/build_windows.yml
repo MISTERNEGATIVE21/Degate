@@ -23,6 +23,13 @@ jobs:
           core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
           core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: 6.2.4 # Update Qt version here.
+        aqtversion: '>=0.9.7'
+        modules: 'qtimageformats'
+
     - name: Prepare dependencies
       shell: cmd
       run: |
@@ -45,9 +52,10 @@ jobs:
         cmake --build . --config $BUILD_TYPE --target DegateTests
         # Windeployqt is sooo broken when using vcpkg...
         # ./vcpkg_installed/x64-windows/tools/Qt6/bin/windeployqt.exe ./tests/out/bin/$BUILD_TYPE
-        mkdir -P tests/out/bin/$BUILD_TYPE/imageformats
-        find . -name vcpkg_installed/x64-windows-degate/Qt6/plugins/imageformats/*.dll -exec cp {} tests/out/bin/$BUILD_TYPE/imageformats/ \;
+        # mkdir -p tests/out/bin/$BUILD_TYPE/imageformats
+        # find . -name vcpkg_installed/x64-windows-degate/Qt6/plugins/imageformats/*.dll -exec cp {} tests/out/bin/$BUILD_TYPE/imageformats/ \;
         cd tests/out/bin/$BUILD_TYPE
+        $Qt6_DIR/bin/windeployqt.exe ./
         ./DegateTests.exe
 
     - name: Upload vcpkg build logs

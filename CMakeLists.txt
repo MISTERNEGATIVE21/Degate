@@ -49,6 +49,15 @@ if(BUILD_TESTS)
 endif()
 
 #
+# Configure vcpkg-qt
+#
+option(VCPKG_QT "Use vcpkg's Qt dependency. WARNING: this will not provide OpenGL software renderer fallback for Windows (mesa llvmpipe)" OFF)
+if(VCPKG_QT)
+    message(STATUS "Using vcpkg's Qt dependency")
+    list(APPEND VCPKG_MANIFEST_FEATURES "vcpkg-qt")
+endif()
+
+#
 # Tell vcpkg to export dll to build folder (windows only)
 #
 if (WIN32)
@@ -133,11 +142,13 @@ message(STATUS "Boost multithreaded libs: ${Boost_USE_MULTITHREADED}")
 find_package(Boost COMPONENTS filesystem system thread REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 set(LIBS ${Boost_LIBRARIES})
+message(STATUS "Boost installation dir: ${Boost_DIR}")
 
 ############# Qt
-find_package(Qt6 COMPONENTS Core Widgets Gui Xml OpenGL OpenGLWidgets Concurrent LinguistTools REQUIRED)
+find_package(Qt6 COMPONENTS Core Widgets Gui Xml OpenGL OpenGLWidgets Concurrent LinguistTools CONFIG REQUIRED)
 set(LIBS ${LIBS} Qt6::Widgets Qt6::Gui Qt6::Core Qt6::Xml Qt6::OpenGL Qt6::OpenGLWidgets Qt6::Concurrent)
 qt_standard_project_setup()
+message(STATUS "Qt installation dir: ${Qt6_DIR}")
 
 
 ############################################################################
