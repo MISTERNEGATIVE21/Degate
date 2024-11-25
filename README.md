@@ -135,7 +135,7 @@ We use [vcpkg](https://vcpkg.io) to handle installation of those, please refer t
 - CMake 3.12.0 or newer,
 - *(optional)* Qt 6.2.4 or newer,
 
-For Linux (please read the Linux section below, some dependencies are only needed if using VCPKG's Qt):
+For Linux (please read the Linux section below, some dependencies are **only needed if using VCPKG's Qt**):
 - xcb-lib
 - xrender-lib
 - autoconf
@@ -149,6 +149,11 @@ For MacOS (please read the MacOS section below):
 - autoconf
 - autoconf-archive
 
+If you are using a local Qt6 installation:
+
+- For Qt6, you can specify to CMake a custom path with: -DCMAKE_PREFIX_PATH="custom_path_to_qt". For example, on Windows: Qt/VERSION/COMPILER/lib/cmake/Qt6. You can download Qt6 here: https://www.qt.io/download.
+- For Linux, don't forget to install the Qt6 add-on module: ImageFormats (you just need to have the package installed, it will be embedded in the Qt6::Core module after). See https://doc.qt.io/qt-6/qtimageformats-index.html. For example, on debian, the package is: qt6-image-formats-plugins. Same problem with linguist tools, for example for debian you need the package: qttools6-dev.
+
 ## Quick start
 
 First, clone this repository (help [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)):
@@ -159,7 +164,7 @@ First, clone this repository (help [here](https://docs.github.com/en/github/crea
 
 ### For Linux (debian-like)
 
-Prepare the install of dependencies (some of them are only needed if using VCPKG's Qt):
+Prepare the install of dependencies (some of them are **only needed if using VCPKG's Qt**):
 ```console
 > ./vcpkg/bootstrap-vcpkg.sh -disableMetrics
 > apt install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev
@@ -194,7 +199,7 @@ Build (in the 'build' folder, for example):
 
 Binaries are in the 'build/out/bin' folder.
 
-If you prefer to use your local Qt installation (and to avoid rebuilding Qt through VCPKG) please use the `-DVCPKG_QT=0` option.
+If you prefer to use your local Qt installation (and to avoid rebuilding Qt through VCPKG) please use the `-DVCPKG_QT=0` option and specify Qt6's path with `-DCMAKE_PREFIX_PATH="path_to_qt"`.
 
 ### For MacOS
 
