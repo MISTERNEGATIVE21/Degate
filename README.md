@@ -126,15 +126,16 @@ Also, you can find [here](https://github.com/DegateCommunity/Degate/wiki) the of
 
 ## Dependencies
 
-Degate has only 2 dependencies: Boost and Qt5.
+Degate has only 2 dependencies: Boost and Qt6.
 
 We use [vcpkg](https://vcpkg.io) to handle installation of those, please refer to the #Quick-start section below.
 
-## Dependencies version
+## Dependencies list
 
 - CMake 3.12.0 or newer,
+- *(optional)* Qt 6.2.4 or newer,
 
-For Linux (please read the Linux section below):
+For Linux (please read the Linux section below, some dependencies are only needed if using VCPKG's Qt):
 - xcb-lib
 - xrender-lib
 - autoconf
@@ -158,21 +159,23 @@ First, clone this repository (help [here](https://docs.github.com/en/github/crea
 
 ### For Linux (debian-like)
 
-Prepare the install of dependencies:
+Prepare the install of dependencies (some of them are only needed if using VCPKG's Qt):
 ```console
 > ./vcpkg/bootstrap-vcpkg.sh -disableMetrics
 > apt install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev
-  libxkbcommon-x11-dev libegl1-mesa-dev
-> apt install libxi-dev libgl1-mesa-dev libglu1-mesa-dev mesa-common-dev libxrandr-dev libxxf86vm-dev autoconf autoconf-archive
+  libxkbcommon-x11-dev libegl1-mesa-dev libglu1-mesa-dev mesa-common-dev libxrandr-dev libxxf86vm-dev 
+  autoconf autoconf-archive
 ```
 If anything is missing, you should be prompted with help on how to install the needed tools.
 
 Build (in the 'build' folder, for example):
 ```console
-> cmake ..
+> cmake .. -DVCPKG_QT=1
 > make
 ```
 Binaries are in the 'build/out/bin' folder.
+
+If you prefer to use your local Qt installation (and to avoid rebuilding Qt through VCPKG) please use the `-DVCPKG_QT=0` option.
 
 ### For Windows
 
@@ -185,11 +188,13 @@ Install dependencies:
 
 Build (in the 'build' folder, for example):
 ```console
-> cmake ..
+> cmake .. -DVCPKG_QT=1
 > cmake --build .
 ```
 
 Binaries are in the 'build/out/bin' folder.
+
+If you prefer to use your local Qt installation (and to avoid rebuilding Qt through VCPKG) please use the `-DVCPKG_QT=0` option.
 
 ### For MacOS
 
@@ -201,11 +206,13 @@ Prepare the install of dependencies:
 
 Build (in the 'build' folder, for example):
 ```console
-> cmake ..
+> cmake .. -DVCPKG_QT=1
 > cmake --build .
 ```
 
 Binaries are in the 'build/out/bin' folder in the bundle ".app" format.
+
+If you prefer to use your local Qt installation (and to avoid rebuilding Qt through VCPKG) please use the `-DVCPKG_QT=0` option.
 
 ## Troubleshooting
 
