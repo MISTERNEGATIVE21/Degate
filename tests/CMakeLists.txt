@@ -53,12 +53,12 @@ set_target_properties(DegateTests
 #
 # Automatic Qt deploy
 #
-qt_generate_deploy_app_script(
-    TARGET DegateTests
-    OUTPUT_SCRIPT deploy_script
-    NO_UNSUPPORTED_PLATFORM_ERROR
-)
-install(SCRIPT ${deploy_script})
+# qt_generate_deploy_app_script(
+#     TARGET DegateTests
+#     OUTPUT_SCRIPT deploy_script
+#     NO_UNSUPPORTED_PLATFORM_ERROR
+# )
+# install(SCRIPT ${deploy_script})
 
 #
 # Link Catch2 tests to CTest

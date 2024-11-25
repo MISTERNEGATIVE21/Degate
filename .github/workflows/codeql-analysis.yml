@@ -55,6 +55,13 @@ jobs:
         docker-images: true
         swap-storage: true
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: 6.2.4 # Update Qt version here.
+        aqtversion: '>=0.9.7'
+        modules: 'qtimageformats'
+
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
