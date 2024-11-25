@@ -55,7 +55,7 @@ jobs:
         # mkdir -p tests/out/bin/$BUILD_TYPE/imageformats
         # find . -name vcpkg_installed/x64-windows-degate/Qt6/plugins/imageformats/*.dll -exec cp {} tests/out/bin/$BUILD_TYPE/imageformats/ \;
         cd tests/out/bin/$BUILD_TYPE
-        $Qt6_DIR/bin/windeployqt.exe ./
+        $QT_ROOT_DIR/bin/windeployqt.exe ./
         ./DegateTests.exe
 
     - name: Upload vcpkg build logs
