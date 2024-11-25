@@ -34,6 +34,13 @@ jobs:
         brew reinstall autoconf
         brew install automake autoconf-archive
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: 6.2.4 # Update Qt version here.
+        aqtversion: '>=0.9.7'
+        modules: 'qtimageformats'
+
     - name: Build
       shell: bash
       run: |

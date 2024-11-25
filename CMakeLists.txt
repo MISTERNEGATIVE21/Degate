@@ -147,7 +147,7 @@ message(STATUS "Boost installation dir: ${Boost_DIR}")
 ############# Qt
 find_package(Qt6 COMPONENTS Core Widgets Gui Xml OpenGL OpenGLWidgets Concurrent LinguistTools CONFIG REQUIRED)
 set(LIBS ${LIBS} Qt6::Widgets Qt6::Gui Qt6::Core Qt6::Xml Qt6::OpenGL Qt6::OpenGLWidgets Qt6::Concurrent)
-qt_standard_project_setup()
+# qt_standard_project_setup()
 message(STATUS "Qt installation dir: ${Qt6_DIR}")
 
 
@@ -273,12 +273,12 @@ install (TARGETS Degate DESTINATION out/bin)
 #
 # Automatic Qt deploy (doesn't deploy everything...)
 #
-qt_generate_deploy_app_script(
-    TARGET Degate
-    OUTPUT_SCRIPT deploy_script
-    NO_UNSUPPORTED_PLATFORM_ERROR
-)
-install(SCRIPT ${deploy_script})
+# qt_generate_deploy_app_script(
+#     TARGET Degate
+#     OUTPUT_SCRIPT deploy_script
+#     NO_UNSUPPORTED_PLATFORM_ERROR
+# )
+# install(SCRIPT ${deploy_script})
 
 #
 # Output specifications
