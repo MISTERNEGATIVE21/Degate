@@ -47,8 +47,6 @@ jobs:
         cd build
         cmake .. 
         cmake --build . --config $BUILD_TYPE --target Degate
-      env:
-        BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
 
     - name: Tests
       shell: bash

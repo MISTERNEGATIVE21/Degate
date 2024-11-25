@@ -4,6 +4,8 @@ on: [workflow_dispatch]
 
 env:
   BUILD_TYPE: Release # Change build type here.
+  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+  VCPKG_ROOT: '${{ github.workspace }}/vcpkg'
 
 jobs:
   build:
@@ -12,6 +14,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+          submodules: recursive
+
+    - name: Export GitHub Actions cache environment variables
+      uses: actions/github-script@v7
+      with:
+        script: |
+          core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+          core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+
+    - name: Prepare dependencies
+      shell: bash
+      run: |
+        ./vcpkg/bootstrap-vcpkg.sh -disableMetrics
+        brew reinstall autoconf
+        brew install automake autoconf-archive
     
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
@@ -22,20 +40,12 @@ jobs:
         tools: 'tools_ifw'
         add-tools-to-path: 'true'
 
-    - name: Install boost
-      uses: MarkusJx/install-boost@v2.4.5
-      id: install-boost
-      with:
-          boost_version: 1.72.0 # Update Boost version here.
-
     - name: Build
       shell: bash
       run: |
         cd build
         cmake .. 
         cmake --build . --config $BUILD_TYPE --target Degate
-      env:
-        BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
 
     - name: Prepare binaries
       shell: bash
@@ -81,3 +91,10 @@ jobs:
       with:
         name: Degate_update_Mac_x64
         path: etc/installer/repository
+
+    - name: Upload vcpkg build logs
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'vcpkg-buildlogs-${{ matrix.triplet }}'
+        path: ${{ env.VCPKG_ROOT }}/buildtrees/**/*.log
